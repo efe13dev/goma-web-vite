@@ -1,9 +1,9 @@
 import type { InventoryItem } from "../types/inventory";
 
-// API URL
-const API_URL = "https://api-rubber-hono.onrender.com/stock";
+// API URL a través del proxy de Vite
+const API_URL = "/api/stock";
 
-// Datos de respaldo en caso de error
+// Datos de respaldo en caso de error (solo se usarán si falla la API)
 const FALLBACK_DATA: InventoryItem[] = [
   { id: 3, name: "negro", quantity: 11 },
   { id: 4, name: "marino", quantity: 3 },
@@ -14,41 +14,40 @@ const FALLBACK_DATA: InventoryItem[] = [
 
 // Fetch inventory data from API
 export const fetchInventoryData = async (): Promise<InventoryItem[]> => {
-	try {
-		// Asegurar que la petición tome al menos 1 segundo para mostrar el estado de carga
-		const [response] = await Promise.all([
-			fetch(API_URL),
-			new Promise(resolve => setTimeout(resolve, 1000))
-		]);
+  try {
+    // Simular un pequeño retraso para mostrar el estado de carga
+    const [response] = await Promise.all([
+      fetch(API_URL),
+      new Promise(resolve => setTimeout(resolve, 800))
+    ]);
 
-		if (!response.ok) {
-			console.error(`Error en la respuesta de la API: ${response.status}`);
-			throw new Error("Error al obtener los datos");
-		}
-		
-		// Obtener el texto de la respuesta primero
-		const responseText = await response.text();
-		
-		// Intentar parsear el texto como JSON
-		try {
-			// Limpiar posibles caracteres no deseados al inicio o final
-			const cleanedText = responseText.trim();
-			const data = JSON.parse(cleanedText);
-			
-			if (!Array.isArray(data)) {
-				console.error("La respuesta no es un array");
-				return FALLBACK_DATA;
-			}
-			
-			return data;
-		} catch (parseError) {
-			console.error("Error al parsear la respuesta JSON:", parseError);
-			// Usar datos de respaldo en caso de error de parseo
-			return FALLBACK_DATA;
-		}
-	} catch (error: unknown) {
-		console.error("Error al obtener datos del inventario:", error);
-		// Usar datos de respaldo en caso de error de red
-		return FALLBACK_DATA;
-	}
+    if (!response.ok) {
+      console.error(`Error en la respuesta de la API: ${response.status}`);
+      throw new Error("Error al obtener los datos");
+    }
+    
+    // Obtener el texto de la respuesta primero
+    const responseText = await response.text();
+    
+    // Intentar parsear el texto como JSON
+    try {
+      // Limpiar posibles caracteres no deseados al inicio o final
+      const cleanedText = responseText.trim();
+      const data = JSON.parse(cleanedText);
+      
+      if (!Array.isArray(data)) {
+        console.error("La respuesta no es un array");
+        throw new Error("Error al obtener los datos");
+      }
+      
+      return data;
+    } catch (parseError) {
+      console.error("Error al parsear la respuesta JSON:", parseError);
+      throw new Error("Error al obtener los datos");
+    }
+  } catch (error: unknown) {
+    console.error("Error al obtener datos del inventario:", error);
+    // Solo en caso de error, usar datos de respaldo
+    return FALLBACK_DATA;
+  }
 };
