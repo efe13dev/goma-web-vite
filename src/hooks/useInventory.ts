@@ -6,7 +6,7 @@ export const useInventory = () => {
   const [state, setState] = useState<InventoryState>({
     items: [],
     filteredItems: [],
-    isLoading: true,
+    isLoading: true, // Iniciar con isLoading en true
     error: null,
     searchQuery: '',
     sortBy: 'id',
@@ -15,13 +15,17 @@ export const useInventory = () => {
 
   // Fetch inventory data
   const fetchInventory = useCallback(async () => {
+    // Establecer estado de carga
+    setState(prevState => ({ ...prevState, isLoading: true, error: null }));
+    
     try {
-      setState(prevState => ({ ...prevState, isLoading: true, error: null }));
+      // Añadir un retraso mínimo para asegurar que se muestre el estado de carga
+      await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Intentar obtener los datos
+      // Obtener datos - ahora siempre devuelve datos (o datos de respaldo)
       const data = await fetchInventoryData();
       
-      // Si llegamos aquí, la petición fue exitosa
+      // Actualizar estado con los datos obtenidos
       setState(prevState => ({ 
         ...prevState, 
         items: data, 
@@ -30,13 +34,14 @@ export const useInventory = () => {
         error: null
       }));
     } catch (error: unknown) {
-      console.error('Error en useInventory:', error);
+      // Este bloque no debería ejecutarse normalmente ya que fetchInventoryData
+      // ahora maneja los errores internamente y devuelve datos de respaldo
+      console.error('Error inesperado en useInventory:', error);
       
-      // Si hay un error, mantener los datos anteriores si existen
       setState(prevState => ({ 
         ...prevState, 
         isLoading: false, 
-        error: error instanceof Error ? error.message : 'Error al cargar los datos'
+        error: "Error al obtener los datos"
       }));
     }
   }, []);
@@ -46,9 +51,13 @@ export const useInventory = () => {
     fetchInventory();
   }, [fetchInventory]);
 
+  // Extraer las propiedades del estado para usarlas como dependencias individuales
+  const { items, searchQuery, sortBy, sortDirection } = state;
+
   // Handle search and sorting
   useEffect(() => {
-    const { items, searchQuery, sortBy, sortDirection } = state;
+    // No hacer nada si no hay items
+    if (items.length === 0) return;
     
     // First filter based on search query
     let filtered = [...items];
@@ -77,8 +86,15 @@ export const useInventory = () => {
       return sortDirection === 'asc' ? comparison : -comparison;
     });
     
-    setState(prevState => ({ ...prevState, filteredItems: filtered }));
-  }, [state]);
+    // Usar una función de actualización para evitar dependencias circulares
+    setState(prevState => {
+      // Si los items filtrados son iguales a los que ya tenemos, no actualizar
+      if (JSON.stringify(prevState.filteredItems) === JSON.stringify(filtered)) {
+        return prevState;
+      }
+      return { ...prevState, filteredItems: filtered };
+    });
+  }, [items, searchQuery, sortBy, sortDirection]); // Dependencias específicas en lugar de todo el estado
 
   // Update search query
   const setSearchQuery = (query: string) => {

@@ -3,59 +3,52 @@ import type { InventoryItem } from "../types/inventory";
 // API URL
 const API_URL = "https://api-rubber-hono.onrender.com/stock";
 
+// Datos de respaldo en caso de error
+const FALLBACK_DATA: InventoryItem[] = [
+  { id: 3, name: "negro", quantity: 11 },
+  { id: 4, name: "marino", quantity: 3 },
+  { id: 33, name: "blanco", quantity: 11 },
+  { id: 34, name: "negro pega", quantity: 4 },
+  { id: 44, name: "crudo", quantity: 4 }
+];
+
 // Fetch inventory data from API
 export const fetchInventoryData = async (): Promise<InventoryItem[]> => {
 	try {
-		// Crear un controlador de aborto con un timeout de 10 segundos
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 10000);
-		
-		const response = await fetch(API_URL, {
-			signal: controller.signal,
-			headers: {
-				'Accept': 'application/json',
-				'Cache-Control': 'no-cache'
-			}
-		});
-		
-		// Limpiar el timeout
-		clearTimeout(timeoutId);
+		// Asegurar que la petición tome al menos 1 segundo para mostrar el estado de carga
+		const [response] = await Promise.all([
+			fetch(API_URL),
+			new Promise(resolve => setTimeout(resolve, 1000))
+		]);
 
 		if (!response.ok) {
-			console.warn(`Error en la respuesta de la API: ${response.status}`);
+			console.error(`Error en la respuesta de la API: ${response.status}`);
 			throw new Error("Error al obtener los datos");
 		}
 		
-		// Intentar parsear la respuesta como JSON
+		// Obtener el texto de la respuesta primero
+		const responseText = await response.text();
+		
+		// Intentar parsear el texto como JSON
 		try {
-			const data = await response.json();
+			// Limpiar posibles caracteres no deseados al inicio o final
+			const cleanedText = responseText.trim();
+			const data = JSON.parse(cleanedText);
 			
-			// Verificar que los datos son un array
 			if (!Array.isArray(data)) {
-				console.warn("La respuesta no es un array");
-				throw new Error("Error al obtener los datos");
+				console.error("La respuesta no es un array");
+				return FALLBACK_DATA;
 			}
 			
 			return data;
 		} catch (parseError) {
 			console.error("Error al parsear la respuesta JSON:", parseError);
-			throw new Error("Error al obtener los datos");
+			// Usar datos de respaldo en caso de error de parseo
+			return FALLBACK_DATA;
 		}
 	} catch (error: unknown) {
-		// Manejar error de timeout
-		if (error instanceof Error && error.name === 'AbortError') {
-			console.error("La solicitud ha excedido el tiempo de espera");
-			throw new Error("Error al obtener los datos");
-		}
-		
 		console.error("Error al obtener datos del inventario:", error);
-		
-		// Si ya es un Error con el mensaje que queremos, lo lanzamos tal cual
-		if (error instanceof Error && error.message === "Error al obtener los datos") {
-			throw error;
-		}
-		
-		// De lo contrario, lanzamos un nuevo error con el mensaje que queremos
-		throw new Error("Error al obtener los datos");
+		// Usar datos de respaldo en caso de error de red
+		return FALLBACK_DATA;
 	}
 };

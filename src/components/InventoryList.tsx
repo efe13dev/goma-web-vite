@@ -14,13 +14,18 @@ const SKELETON_IDS = ['sk1', 'sk2', 'sk3', 'sk4', 'sk5'];
 const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasError = false }) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 animate-pulse">
-        {SKELETON_IDS.map((id) => (
-          <div 
-            key={id} 
-            className="bg-gray-100 rounded-lg p-5 h-32" 
-          />
-        ))}
+      <div className="space-y-6">
+        <div className="text-center py-4">
+          <p className="text-blue-600 font-medium text-lg">Cargando datos...</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 animate-pulse">
+          {SKELETON_IDS.map((id) => (
+            <div 
+              key={id} 
+              className="bg-gray-100 rounded-lg p-5 h-32" 
+            />
+          ))}
+        </div>
       </div>
     );
   }
