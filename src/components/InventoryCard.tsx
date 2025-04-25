@@ -9,8 +9,8 @@ interface InventoryCardProps {
 const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
   // Determine quantity level for styling
   const getQuantityLevel = (quantity: number): string => {
-    if (quantity <= 3) return 'low';
-    if (quantity <= 7) return 'medium';
+    if (quantity <= 2) return 'low';
+    if (quantity === 3) return 'medium';
     return 'high';
   };
 
@@ -27,13 +27,13 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
       
       <div className="flex items-center mt-3 mb-1">
         <Package size={18} className="text-gray-500 mr-2" />
-        <span className="text-sm font-medium text-gray-700">Quantity</span>
+        <span className="text-sm font-medium text-gray-700">Cantidad</span>
         <span className={`ml-auto font-bold text-sm ${
           quantityLevel === 'low' ? 'text-red-500' : 
           quantityLevel === 'medium' ? 'text-amber-500' : 
           'text-green-600'
         }`}>
-          {item.quantity} units
+          {item.quantity} unidades
         </span>
       </div>
       

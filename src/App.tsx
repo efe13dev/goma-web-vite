@@ -62,7 +62,7 @@ function App() {
 				{/* Status and Error Messages */}
 				{error && (
 					<div className="mb-6">
-						<ErrorMessage message={error} />
+						<ErrorMessage message={error} onRetry={refreshInventory} />
 					</div>
 				)}
 
