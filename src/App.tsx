@@ -1,4 +1,4 @@
-import { Box, LayoutGrid, RefreshCw } from "lucide-react";
+import { Box, RefreshCw } from "lucide-react";
 import InventoryList from "./components/InventoryList";
 import SortDropdown from "./components/SortDropdown";
 import ErrorMessage from "./components/ErrorMessage";
@@ -25,7 +25,7 @@ function App() {
 							<Box className="h-8 w-8 text-blue-600 mr-3" />
 							<h1 className="text-xl font-bold text-gray-900">Goma Matu</h1>
 						</div>
-						<div className="flex items-center space-x-4">
+						<div className="w-full flex justify-end sm:w-auto sm:flex-none">
 							<button
 								type="button"
 								onClick={refreshInventory}
@@ -39,10 +39,6 @@ function App() {
 								/>
 								<span>{isLoading ? "Cargando..." : "Actualizar"}</span>
 							</button>
-							<div className="flex items-center text-sm text-gray-500">
-								<LayoutGrid size={16} className="mr-1" />
-								<span>{items.length} items</span>
-							</div>
 						</div>
 					</div>
 				</div>
