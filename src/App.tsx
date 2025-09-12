@@ -1,6 +1,6 @@
 import { Box, RefreshCw } from "lucide-react";
 import InventoryList from "./components/InventoryList";
-import SortDropdown from "./components/SortDropdown";
+// import SortDropdown from "./components/SortDropdown"; // Desactivado temporalmente
 import ErrorMessage from "./components/ErrorMessage";
 import { useInventory } from "./hooks/useInventory";
 
@@ -9,9 +9,9 @@ function App() {
 		items,
 		isLoading,
 		error,
-		sortBy,
-		sortDirection,
-		setSorting,
+		// sortBy, // Desactivado temporalmente
+		// sortDirection, // Desactivado temporalmente
+		// setSorting, // Desactivado temporalmente
 		refreshInventory,
 	} = useInventory();
 
@@ -47,6 +47,7 @@ function App() {
 			{/* Main Content */}
 			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 				{/* Controls */}
+				{/* Filtro de ordenar desactivado temporalmente - descomentar para reactivar
 				<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 mb-6">
 					<SortDropdown
 						sortBy={sortBy}
@@ -54,6 +55,7 @@ function App() {
 						onSortChange={setSorting}
 					/>
 				</div>
+				*/}
 
 				{/* Status and Error Messages */}
 				{error && (
