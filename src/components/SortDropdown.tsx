@@ -55,11 +55,11 @@ const SortDropdown: React.FC<SortDropdownProps> = ({
 					<ArrowUpDown size={16} className="mr-2 text-gray-500" />
 					<span>
 						{sortBy === "id" &&
-							`Ordenar por Id: ${sortDirection === "asc" ? "A-Z" : "Z-A"}`}
+							`Ordenar por Id: ${sortDirection === "asc" ? "Menor a Mayor" : "Mayor a Menor"}`}
 						{sortBy === "name" &&
 							`Ordenar por Nombre: ${sortDirection === "asc" ? "A-Z" : "Z-A"}`}
 						{sortBy === "quantity" &&
-							`Ordenar por Cantidad: ${sortDirection === "asc" ? "A-Z" : "Z-A"}`}
+							`Ordenar por Cantidad: ${sortDirection === "asc" ? "Menor a Mayor" : "Mayor a Menor"}`}
 					</span>
 				</span>
 				<ChevronDown

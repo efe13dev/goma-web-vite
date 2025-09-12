@@ -9,8 +9,8 @@ export const useInventory = () => {
     isLoading: true, // Iniciar con isLoading en true
     error: null,
     searchQuery: '',
-    sortBy: 'id',
-    sortDirection: 'asc'
+    sortBy: 'quantity',
+    sortDirection: 'desc'
   });
 
   // Fetch inventory data
