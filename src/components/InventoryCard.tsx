@@ -4,9 +4,10 @@ import { Package } from "lucide-react";
 
 interface InventoryCardProps {
 	item: InventoryItem;
+	style?: React.CSSProperties;
 }
 
-const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
+const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
 	// Determine quantity level for styling
 	const getQuantityLevel = (quantity: number): string => {
 		if (quantity <= 2) return "low";
@@ -20,7 +21,10 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item }) => {
 	const progressPercentage = Math.min((item.quantity / 12) * 100, 100);
 
 	return (
-		<div className="bg-white rounded-lg shadow-md p-5 transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]">
+		<div
+			className="bg-white rounded-lg shadow-md p-5 transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px] card-animate"
+			style={style}
+		>
 			<div className="flex items-center justify-between mb-3">
 				<h3 className="text-lg font-semibold capitalize text-gray-800">
 					{item.name}
