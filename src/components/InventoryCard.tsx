@@ -1,6 +1,6 @@
 import type React from "react";
 import type { InventoryItem } from "../types/inventory";
-import { Package } from "lucide-react";
+import { Layers } from "lucide-react";
 
 interface InventoryCardProps {
 	item: InventoryItem;
@@ -32,7 +32,7 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
 			</div>
 
 			<div className="flex items-center mt-3 mb-1">
-				<Package size={18} className="text-gray-500 mr-2" />
+				<Layers size={18} className="text-gray-500 mr-2" />
 				<span className="text-sm font-medium text-gray-700">Cantidad</span>
 				<span
 					className={`ml-auto font-bold text-sm ${
