@@ -10,6 +10,6 @@ export interface InventoryState {
   isLoading: boolean;
   error: string | null;
   searchQuery: string;
-  sortBy: 'id' | 'name' | 'quantity';
-  sortDirection: 'asc' | 'desc';
+  sortBy: "id" | "name" | "quantity";
+  sortDirection: "asc" | "desc";
 }

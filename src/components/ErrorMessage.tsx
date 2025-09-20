@@ -1,5 +1,6 @@
-import type { FC } from 'react';
-import { AlertCircle, RefreshCw } from 'lucide-react';
+import type { FC } from "react";
+
+import { AlertCircle, RefreshCw } from "lucide-react";
 
 interface ErrorMessageProps {
   message: string;
@@ -8,7 +9,7 @@ interface ErrorMessageProps {
 
 const ErrorMessage: FC<ErrorMessageProps> = ({ message, onRetry }) => {
   return (
-    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center justify-between">
+    <div className="flex items-center justify-between rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
       <div className="flex items-center">
         <AlertCircle size={20} className="mr-2 text-red-500" />
         <span>{message}</span>
@@ -17,7 +18,7 @@ const ErrorMessage: FC<ErrorMessageProps> = ({ message, onRetry }) => {
         <button
           type="button"
           onClick={onRetry}
-          className="ml-4 px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded-md flex items-center transition-colors"
+          className="ml-4 flex items-center rounded-md bg-red-100 px-3 py-1 text-red-700 transition-colors hover:bg-red-200"
         >
           <RefreshCw size={16} className="mr-1" />
           <span>Reintentar</span>
