@@ -1,6 +1,6 @@
 import type { InventoryItem } from "../types/inventory";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { fetchInventoryData } from "../services/inventoryService";
 
@@ -16,7 +16,10 @@ export const useInventory = () => {
 
     try {
       // Añadir un retraso mínimo para asegurar que se muestre el estado de carga
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      /*  await new Promise((resolve) => setTimeout(resolve, 200)); */
+
+      // Simular un error para probar el botón de reintentar
+      /* throw new Error("Error simulado para probar"); */
 
       // Obtener datos
       const data = await fetchInventoryData();
