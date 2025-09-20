@@ -24,16 +24,16 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
 
   return (
     <div
-      className="card-animate bg-surface-container rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl"
+      className="card-animate rounded-lg bg-surface-container p-4 shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl"
       style={style}
     >
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-on-surface text-lg font-semibold capitalize">{item.name}</h3>
+        <h3 className="text-lg font-semibold capitalize text-on-surface">{item.name}</h3>
       </div>
 
       <div className="mb-1 mt-3 flex items-center">
-        <Layers size={18} className="text-on-surface-variant mr-2" />
-        <span className="text-on-surface text-sm font-medium">Cantidad</span>
+        <Layers size={18} className="mr-2 text-on-surface-variant" />
+        <span className="text-sm font-medium text-on-surface">Cantidad</span>
         <span
           className={`ml-auto text-sm font-bold ${
             quantityLevel === "low"
@@ -47,7 +47,7 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
         </span>
       </div>
 
-      <div className="bg-surface-variant mt-2 h-2.5 rounded-full">
+      <div className="mt-2 h-2.5 rounded-full bg-surface-variant">
         <div
           className={`h-2.5 rounded-full ${
             quantityLevel === "low"
