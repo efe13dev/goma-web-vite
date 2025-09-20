@@ -24,37 +24,37 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
 
   return (
     <div
-      className="card-animate rounded-lg bg-white p-5 shadow-md transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
+      className="card-animate bg-surface-container rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-xl"
       style={style}
     >
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-lg font-semibold capitalize text-gray-800">{item.name}</h3>
+        <h3 className="text-on-surface text-lg font-semibold capitalize">{item.name}</h3>
       </div>
 
       <div className="mb-1 mt-3 flex items-center">
-        <Layers size={18} className="mr-2 text-gray-500" />
-        <span className="text-sm font-medium text-gray-700">Cantidad</span>
+        <Layers size={18} className="text-on-surface-variant mr-2" />
+        <span className="text-on-surface text-sm font-medium">Cantidad</span>
         <span
           className={`ml-auto text-sm font-bold ${
             quantityLevel === "low"
-              ? "text-red-500"
+              ? "text-error"
               : quantityLevel === "medium"
-                ? "text-amber-500"
-                : "text-green-600"
+                ? "text-tertiary"
+                : "text-primary"
           }`}
         >
           {item.quantity} unidades
         </span>
       </div>
 
-      <div className="mt-2 h-2.5 rounded-full bg-gray-200">
+      <div className="bg-surface-variant mt-2 h-2.5 rounded-full">
         <div
           className={`h-2.5 rounded-full ${
             quantityLevel === "low"
-              ? "bg-red-500"
+              ? "bg-error"
               : quantityLevel === "medium"
-                ? "bg-amber-500"
-                : "bg-green-600"
+                ? "bg-tertiary"
+                : "bg-primary"
           }`}
           style={{ width: `${progressPercentage}%` }}
         />

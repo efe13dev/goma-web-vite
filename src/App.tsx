@@ -1,5 +1,5 @@
-import palot from "/favicon.png";
 import { RefreshCw } from "lucide-react";
+import palot from "/favicon.png";
 
 import InventoryList from "./components/InventoryList";
 // import SortDropdown from "./components/SortDropdown"; // Desactivado temporalmente
@@ -18,24 +18,24 @@ function App() {
   } = useInventory();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-background min-h-screen">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="border-outline/20 bg-surface-container-low border-b">
         <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-col items-start justify-between space-y-4 sm:flex-row sm:items-center sm:space-y-0">
             <div className="flex items-center">
               <img src={palot} className="mr-3 h-12 w-12" alt="Logo" />
-              <h1 className="text-xl font-bold text-gray-900">Goma Matu</h1>
+              <h1 className="text-on-surface text-2xl font-bold">Goma Matu</h1>
             </div>
             <div className="flex w-full justify-end sm:w-auto sm:flex-none">
               <button
                 type="button"
                 onClick={refreshInventory}
-                className="flex items-center text-sm text-blue-600 transition-colors hover:text-blue-800"
+                className="bg-primary text-on-primary hover:bg-primary/90 flex items-center rounded-full px-3 py-1.5 text-xs transition-colors"
                 aria-label="Actualizar inventario"
                 disabled={isLoading}
               >
-                <RefreshCw size={16} className={`mr-1 ${isLoading ? "animate-spin" : ""}`} />
+                <RefreshCw size={14} className={`mr-1 ${isLoading ? "animate-spin" : ""}`} />
                 <span>{isLoading ? "Cargando..." : "Actualizar"}</span>
               </button>
             </div>
@@ -45,17 +45,6 @@ function App() {
 
       {/* Main Content */}
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Controls */}
-        {/* Filtro de ordenar desactivado temporalmente - descomentar para reactivar
-				<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 mb-6">
-					<SortDropdown
-						sortBy={sortBy}
-						sortDirection={sortDirection}
-						onSortChange={setSorting}
-					/>
-				</div>
-				*/}
-
         {/* Status and Error Messages */}
         {error && (
           <div className="mb-6">

@@ -9,21 +9,23 @@ interface ErrorMessageProps {
 
 const ErrorMessage: FC<ErrorMessageProps> = ({ message, onRetry }) => {
   return (
-    <div className="flex items-center justify-between rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
-      <div className="flex items-center">
-        <AlertCircle size={20} className="mr-2 text-red-500" />
-        <span>{message}</span>
+    <div className="border-error/20 bg-error-container rounded-lg border p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <AlertCircle size={20} className="text-on-error-container mr-2" />
+          <span className="text-on-error-container text-sm font-medium">{message}</span>
+        </div>
+        {onRetry && (
+          <button
+            type="button"
+            onClick={onRetry}
+            className="bg-error text-on-error hover:bg-error/90 ml-4 rounded-full px-3 py-1 transition-colors"
+          >
+            <RefreshCw size={16} className="mr-1" />
+            <span>Reintentar</span>
+          </button>
+        )}
       </div>
-      {onRetry && (
-        <button
-          type="button"
-          onClick={onRetry}
-          className="ml-4 flex items-center rounded-md bg-red-100 px-3 py-1 text-red-700 transition-colors hover:bg-red-200"
-        >
-          <RefreshCw size={16} className="mr-1" />
-          <span>Reintentar</span>
-        </button>
-      )}
     </div>
   );
 };

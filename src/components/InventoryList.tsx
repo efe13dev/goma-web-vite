@@ -17,9 +17,9 @@ const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasErro
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-center py-8">
-          <p className="flex items-center gap-2 text-lg font-medium text-blue-600">
+          <p className="text-on-surface flex items-center gap-2 text-lg font-medium">
             <svg
-              className="h-5 w-5 animate-spin text-blue-600"
+              className="text-primary h-5 w-5 animate-spin"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -44,7 +44,7 @@ const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasErro
         </div>
         <div className="grid animate-pulse grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {SKELETON_IDS.map((id) => (
-            <div key={id} className="h-32 rounded-lg bg-gray-100 p-5" />
+            <div key={id} className="bg-surface-variant h-32 rounded-lg p-5" />
           ))}
         </div>
       </div>
@@ -55,7 +55,7 @@ const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasErro
   if (items.length === 0 && !hasError) {
     return (
       <div className="py-10 text-center">
-        <p className="text-lg text-gray-500">No items found</p>
+        <p className="text-on-surface-variant text-lg">No se encontraron items</p>
       </div>
     );
   }
