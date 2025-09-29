@@ -35,7 +35,7 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
         <Layers size={18} className="mr-2 text-on-surface-variant" />
         <span className="text-sm font-medium text-on-surface">Cantidad</span>
         <span
-          className={`ml-auto text-sm font-semibold ${
+          className={`ml-auto text-base font-semibold ${
             quantityLevel === "low"
               ? "text-error"
               : quantityLevel === "medium"
