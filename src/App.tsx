@@ -18,20 +18,20 @@ function App() {
   } = useInventory();
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-outline/20 bg-surface-container-low border-b">
+      <header className="sticky top-0 z-10 border-b border-outline/20 bg-surface-container-low/80 backdrop-blur supports-[backdrop-filter]:bg-surface-container-low/70">
         <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-col items-start justify-between space-y-4 sm:flex-row sm:items-center sm:space-y-0">
             <div className="flex items-center">
               <img src={palot} className="mr-3 h-12 w-12" alt="Logo" />
-              <h1 className="text-on-surface text-2xl font-bold">Goma Matu</h1>
+              <h1 className="text-2xl font-bold text-on-surface">Goma Matu</h1>
             </div>
             <div className="flex w-full justify-end sm:w-auto sm:flex-none">
               <button
                 type="button"
                 onClick={refreshInventory}
-                className="bg-primary text-on-primary hover:bg-primary/90 flex items-center rounded-full px-3 py-1.5 text-xs transition-colors"
+                className="md-btn md-btn-filled"
                 aria-label="Actualizar inventario"
                 disabled={isLoading}
               >

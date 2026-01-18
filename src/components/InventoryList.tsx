@@ -44,7 +44,17 @@ const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasErro
         </div>
         <div className="grid animate-pulse grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {SKELETON_IDS.map((id) => (
-            <div key={id} className="h-32 rounded-lg bg-surface-variant p-5" />
+            <div key={id} className="md-card p-4">
+              <div className="flex items-center justify-between">
+                <div className="h-4 w-28 rounded bg-surface-variant" />
+                <div className="h-6 w-20 rounded-full bg-surface-variant" />
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <div className="h-3 w-20 rounded bg-surface-variant" />
+                <div className="h-3 w-10 rounded bg-surface-variant" />
+              </div>
+              <div className="mt-4 h-2.5 rounded-full bg-surface-variant" />
+            </div>
           ))}
         </div>
       </div>

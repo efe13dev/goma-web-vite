@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
+        quantity: ["Manrope", "Roboto", "sans-serif"],
       },
       colors: {
         // Material Design 3 Primary Colors
