@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Roboto", "sans-serif"],
-        quantity: ["Manrope", "Roboto", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+        display: ["Manrope", "Inter", "sans-serif"],
+        quantity: ["Manrope", "Inter", "sans-serif"],
       },
       colors: {
         // Material Design 3 Primary Colors
@@ -91,6 +92,11 @@ export default {
         // Outline Colors
         outline: "#79747e",
         "outline-variant": "#c4c0c9",
+
+        // Stock level (semáforo)
+        "stock-low": "#ef4444",
+        "stock-mid": "#f59e0b",
+        "stock-high": "#22c55e",
 
         // Background
         background: "#fef7ff",

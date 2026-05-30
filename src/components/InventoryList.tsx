@@ -1,6 +1,8 @@
 import type React from "react";
 import type { InventoryItem } from "../types/inventory";
 
+import { PackageSearch } from "lucide-react";
+
 import InventoryCard from "./InventoryCard";
 
 interface InventoryListProps {
@@ -64,8 +66,14 @@ const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasErro
   // No mostrar "No items found" si hay un error
   if (items.length === 0 && !hasError) {
     return (
-      <div className="py-10 text-center">
-        <p className="text-lg text-on-surface-variant">No se encontraron items</p>
+      <div className="flex flex-col items-center justify-center py-16 text-center">
+        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-surface-variant text-on-surface-variant">
+          <PackageSearch size={28} />
+        </div>
+        <p className="text-lg font-medium text-on-surface">No se encontraron items</p>
+        <p className="mt-1 text-sm text-on-surface-variant">
+          No hay productos en el inventario por el momento.
+        </p>
       </div>
     );
   }

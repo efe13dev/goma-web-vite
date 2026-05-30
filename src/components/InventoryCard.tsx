@@ -6,16 +6,34 @@ interface InventoryCardProps {
   style?: React.CSSProperties;
 }
 
+type QuantityLevel = "low" | "medium" | "high";
+
+const LEVEL_CONFIG: Record<QuantityLevel, { text: string; bar: string }> = {
+  low: {
+    text: "text-stock-low",
+    bar: "bg-stock-low",
+  },
+  medium: {
+    text: "text-stock-mid",
+    bar: "bg-stock-mid",
+  },
+  high: {
+    text: "text-stock-high",
+    bar: "bg-stock-high",
+  },
+};
+
 const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
   // Determine quantity level for styling
-  const getQuantityLevel = (quantity: number): string => {
+  const getQuantityLevel = (quantity: number): QuantityLevel => {
     if (quantity <= 2) return "low";
-    if (quantity === 3) return "medium";
+    if (quantity <= 5) return "medium";
 
     return "high";
   };
 
   const quantityLevel = getQuantityLevel(item.quantity);
+  const config = LEVEL_CONFIG[quantityLevel];
 
   // Calculate progress percentage for the bar
   const progressPercentage = Math.min((item.quantity / 12) * 100, 100);
@@ -23,34 +41,23 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
 
   return (
     <div className="md-card md-card-hover card-animate p-4" style={style}>
-      <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-base font-semibold capitalize tracking-tight text-on-surface">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="min-w-0 truncate font-display text-base font-semibold capitalize tracking-tight text-on-surface">
           {item.name}
         </h3>
-        <div className="text-right">
-          <div
-            className={`font-quantity text-[30px] font-bold tabular-nums leading-none tracking-tight ${
-              quantityLevel === "low"
-                ? "text-error"
-                : quantityLevel === "medium"
-                  ? "text-tertiary"
-                  : "text-primary"
-            }`}
+        <div className="flex shrink-0 items-baseline gap-1">
+          <span
+            className={`font-quantity text-[32px] font-bold tabular-nums leading-none tracking-tight ${config.text}`}
           >
             {item.quantity}
-          </div>
+          </span>
+          <span className="text-xs font-medium text-on-surface-variant">uds</span>
         </div>
       </div>
 
-      <div className="mt-3 h-2.5 rounded-full bg-surface-variant">
+      <div className="h-2.5 overflow-hidden rounded-full bg-surface-variant">
         <div
-          className={`h-2.5 rounded-full transition-[width] duration-500 ${
-            quantityLevel === "low"
-              ? "bg-error"
-              : quantityLevel === "medium"
-                ? "bg-tertiary"
-                : "bg-primary"
-          }`}
+          className={`h-2.5 rounded-full transition-[width] duration-700 ease-out ${config.bar}`}
           style={{ width: `${progressPercentageVisible}%` }}
         />
       </div>
