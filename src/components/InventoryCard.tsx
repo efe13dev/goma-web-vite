@@ -27,7 +27,7 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
   // Determine quantity level for styling
   const getQuantityLevel = (quantity: number): QuantityLevel => {
     if (quantity <= 2) return "low";
-    if (quantity <= 5) return "medium";
+    if (quantity === 3) return "medium";
 
     return "high";
   };
