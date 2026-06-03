@@ -34,7 +34,7 @@ const InventoryList: React.FC<InventoryListProps> = ({
     );
   }
 
-  // No mostrar "No items found" si hay un error
+  // Don't show "No items found" if there's an error
   if (items.length === 0 && !hasError) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">

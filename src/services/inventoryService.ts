@@ -1,44 +1,44 @@
 import type { InventoryItem } from "../types/inventory";
 
-// URL de la API
-const API_URL = "https://api-rubber-hono.onrender.com/stock";
+// API URL - uses environment variable (Vite proxy in dev, full URL in production)
+const API_URL = import.meta.env.VITE_API_URL || "/api/stock";
 
 // Fetch inventory data from API
 export const fetchInventoryData = async (): Promise<InventoryItem[]> => {
   try {
-    // Simular un pequeño retraso para mostrar el estado de carga
+    // Simulate a small delay to show loading state
     const [response] = await Promise.all([
       fetch(API_URL),
       new Promise((resolve) => setTimeout(resolve, 800)),
     ]);
 
     if (!response.ok) {
-      console.error(`Error en la respuesta de la API: ${response.status}`);
+      console.error(`API response error: ${response.status}`);
       throw new Error("Error al obtener los datos");
     }
 
-    // Obtener el texto de la respuesta primero
+    // Get response text first
     const responseText = await response.text();
 
-    // Intentar parsear el texto como JSON
+    // Try to parse text as JSON
     try {
-      // Limpiar posibles caracteres no deseados al inicio o final
+      // Clean possible unwanted characters at start or end
       const cleanedText = responseText.trim();
       const data = JSON.parse(cleanedText);
 
       if (!Array.isArray(data)) {
-        console.error("La respuesta no es un array");
+        console.error("Response is not an array");
         throw new Error("Error al obtener los datos");
       }
 
       return data;
     } catch (parseError) {
-      console.error("Error al parsear la respuesta JSON:", parseError);
+      console.error("Error parsing JSON response:", parseError);
       throw new Error("Error al obtener los datos");
     }
   } catch (error: unknown) {
-    console.error("Error al obtener datos del inventario:", error);
-    // Propagar el error en lugar de usar datos de respaldo
+    console.error("Error fetching inventory data:", error);
+    // Propagate error instead of using fallback data
     throw new Error("No se pudieron obtener los datos");
   }
 };

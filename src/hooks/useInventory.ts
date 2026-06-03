@@ -27,19 +27,19 @@ export const useInventory = () => {
     setError(null);
 
     try {
-      // Añadir un retraso mínimo para asegurar que se muestre el estado de carga
+      // Add a minimum delay to ensure loading state is shown
       /*  await new Promise((resolve) => setTimeout(resolve, 200)); */
 
-      // Simular un error para probar el botón de reintentar
-      /* throw new Error("Error simulado para probar"); */
+      // Simulate error to test retry button
+      /* throw new Error("Simulated error for testing"); */
 
-      // Obtener datos
+      // Fetch data
       const data = await fetchInventoryData();
 
-      // Actualizar estado con los datos obtenidos
+      // Update state with fetched data
       setItems(data);
 
-      // Recordar el conteo para mostrar el número correcto de skeletons la próxima vez
+      // Remember the count to show the correct number of skeletons next time
       if (data.length > 0) {
         setSkeletonCount(data.length);
         window.localStorage.setItem(LAST_COUNT_KEY, String(data.length));
@@ -47,7 +47,7 @@ export const useInventory = () => {
 
       setIsLoading(false);
     } catch (error: unknown) {
-      console.error("Error inesperado en useInventory:", error);
+      console.error("Unexpected error in useInventory:", error);
       setIsLoading(false);
       setError("Error al obtener los datos");
     }

@@ -93,7 +93,7 @@ export default {
         outline: "#79747e",
         "outline-variant": "#c4c0c9",
 
-        // Stock level (semáforo)
+        // Stock level (traffic light)
         "stock-low": "#ef4444",
         "stock-mid": "#f59e0b",
         "stock-high": "#22c55e",

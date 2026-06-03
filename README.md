@@ -45,15 +45,26 @@ La app obtiene los datos de inventario desde un backend remoto.
 
 - **Endpoint actual**: `https://api-rubber-hono.onrender.com/stock`
 
+### Variables de entorno
+
+La URL de la API se configura mediante variables de entorno:
+
+| Entorno | Archivo | Valor |
+|---------|---------|-------|
+| Desarrollo | `.env` | `/api/stock` (usa proxy de Vite) |
+| Producción | `.env.production` | `https://api-rubber-hono.onrender.com/stock` |
+
+Para personalizar localmente, crea un archivo `.env.local` (se ignora en git) copiando de `.env.example`.
+
 ### Proxy en desarrollo
 
-En `vite.config.ts` existe un proxy para redirigir llamadas a `/api` al backend y evitar problemas de CORS.
+En `vite.config.ts` existe un proxy que redirige llamadas de `/api` al backend:
 
-Ejemplo:
+```
+GET /api/stock  →  https://api-rubber-hono.onrender.com/stock
+```
 
-- `GET /api/stock` (frontend) -> `https://api-rubber-hono.onrender.com/stock` (backend)
-
-Nota: asegúrate de usar `npm run dev` y acceder a `http://localhost:5173/` para que el proxy aplique.
+Esto evita problemas de CORS durante el desarrollo. Asegúrate de usar `npm run dev` y acceder a `http://localhost:5173/`.
 
 ## Estructura del proyecto
 
