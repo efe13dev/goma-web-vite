@@ -9,56 +9,27 @@ interface InventoryListProps {
   items: InventoryItem[];
   isLoading: boolean;
   hasError?: boolean;
+  skeletonCount?: number;
 }
 
-// Crear un array de IDs únicos para los esqueletos de carga
-const SKELETON_IDS = ["sk1", "sk2", "sk3", "sk4", "sk5"];
-
-const InventoryList: React.FC<InventoryListProps> = ({ items, isLoading, hasError = false }) => {
+const InventoryList: React.FC<InventoryListProps> = ({
+  items,
+  isLoading,
+  hasError = false,
+  skeletonCount = 5,
+}) => {
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-center py-8">
-          <p className="flex items-center gap-2 text-lg font-medium text-on-surface">
-            <svg
-              className="h-5 w-5 animate-spin text-primary"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <title>Cargando</title>
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              />
-            </svg>
-            Cargando datos...
-          </p>
-        </div>
-        <div className="grid animate-pulse grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {SKELETON_IDS.map((id) => (
-            <div key={id} className="md-card p-4">
-              <div className="flex items-center justify-between">
-                <div className="h-4 w-28 rounded bg-surface-variant" />
-                <div className="h-6 w-20 rounded-full bg-surface-variant" />
-              </div>
-              <div className="mt-4 flex items-center justify-between">
-                <div className="h-3 w-20 rounded bg-surface-variant" />
-                <div className="h-3 w-10 rounded bg-surface-variant" />
-              </div>
-              <div className="mt-4 h-2.5 rounded-full bg-surface-variant" />
+      <div className="grid animate-pulse grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: skeletonCount }, (_, index) => (
+          <div key={`skeleton-${index}`} className="md-card p-4">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div className="h-5 w-28 rounded bg-surface-variant" />
+              <div className="h-8 w-12 rounded bg-surface-variant" />
             </div>
-          ))}
-        </div>
+            <div className="h-2.5 rounded-full bg-surface-variant" />
+          </div>
+        ))}
       </div>
     );
   }

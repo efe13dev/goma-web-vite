@@ -2,20 +2,11 @@ import { RefreshCw } from "lucide-react";
 import palot from "/favicon.png";
 
 import InventoryList from "./components/InventoryList";
-// import SortDropdown from "./components/SortDropdown"; // Desactivado temporalmente
 import ErrorMessage from "./components/ErrorMessage";
 import { useInventory } from "./hooks/useInventory";
 
 function App() {
-  const {
-    items,
-    isLoading,
-    error,
-    // sortBy, // Desactivado temporalmente
-    // sortDirection, // Desactivado temporalmente
-    // setSorting, // Desactivado temporalmente
-    refreshInventory,
-  } = useInventory();
+  const { items, isLoading, error, skeletonCount, refreshInventory } = useInventory();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-surface-container-low via-background to-background">
@@ -58,7 +49,12 @@ function App() {
         )}
 
         {/* Inventory Cards */}
-        <InventoryList items={items} isLoading={isLoading} hasError={!!error} />
+        <InventoryList
+          items={items}
+          isLoading={isLoading}
+          hasError={!!error}
+          skeletonCount={skeletonCount}
+        />
       </main>
     </div>
   );
