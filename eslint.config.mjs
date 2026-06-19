@@ -1,8 +1,6 @@
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
-import eslintPluginImport from "eslint-plugin-import";
-import { fixupPluginRules } from "@eslint/compat";
 
 export default [
   // Ignorar carpetas
@@ -42,38 +40,6 @@ export default [
           args: "after-used",
           argsIgnorePattern: "^_.*?$",
           caughtErrorsIgnorePattern: "^_.*?$",
-        },
-      ],
-    },
-  },
-
-  // Imports
-  {
-    plugins: {
-      import: fixupPluginRules(eslintPluginImport),
-    },
-    rules: {
-      "import/order": [
-        "warn",
-        {
-          groups: [
-            "type",
-            "builtin",
-            "object",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
-          ],
-          pathGroups: [
-            {
-              pattern: "@/*",
-              group: "external",
-              position: "after",
-            },
-          ],
-          "newlines-between": "always",
         },
       ],
     },
