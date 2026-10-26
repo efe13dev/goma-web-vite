@@ -1,8 +1,8 @@
-import { RefreshCw } from "lucide-react";
 import palot from "/favicon.png";
+import { RefreshCw } from "lucide-react";
 
-import InventoryList from "./components/InventoryList";
 import ErrorMessage from "./components/ErrorMessage";
+import InventoryList from "./components/InventoryList";
 import { useInventory } from "./hooks/useInventory";
 
 function App() {

@@ -42,7 +42,7 @@ export const useInventory = () => {
   }, []);
 
   useEffect(() => {
-    refreshInventory();
+    void refreshInventory();
   }, [refreshInventory]);
 
   return {

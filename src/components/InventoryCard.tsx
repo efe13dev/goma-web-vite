@@ -1,5 +1,5 @@
-import type React from "react";
 import type { InventoryItem } from "../types/inventory";
+import type React from "react";
 
 interface InventoryCardProps {
   item: InventoryItem;

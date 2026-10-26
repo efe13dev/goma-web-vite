@@ -49,9 +49,9 @@ La app obtiene los datos de inventario desde un backend remoto.
 
 La URL de la API se configura mediante variables de entorno:
 
-| Entorno | Archivo | Valor |
-|---------|---------|-------|
-| Desarrollo | `.env` | `/api/stock` (usa proxy de Vite) |
+| Entorno    | Archivo           | Valor                                        |
+| ---------- | ----------------- | -------------------------------------------- |
+| Desarrollo | `.env`            | `/api/stock` (usa proxy de Vite)             |
 | Producción | `.env.production` | `https://api-rubber-hono.onrender.com/stock` |
 
 Para personalizar localmente, crea un archivo `.env.local` (se ignora en git) copiando de `.env.example`.
