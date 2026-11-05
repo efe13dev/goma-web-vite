@@ -55,25 +55,25 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, onSelect, style }) 
       <div className="mb-3.5 flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
           <span
-            className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-black/15"
+            className="h-4 w-4 shrink-0 rounded-full ring-1 ring-black/15"
             style={{ backgroundColor: swatchColor }}
             aria-hidden="true"
           />
-          <h3 className="min-w-0 truncate font-display text-[15px] font-semibold capitalize tracking-tight text-on-surface sm:text-base">
+          <h3 className="min-w-0 truncate font-display text-lg font-semibold capitalize tracking-tight text-on-surface">
             {item.name}
           </h3>
           <ChevronRight
-            size={15}
+            size={17}
             className="shrink-0 text-on-surface-variant/45 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-on-surface"
           />
         </div>
         <div
-          className={`inline-flex shrink-0 items-baseline gap-1 rounded-lg px-2.5 py-1 ring-1 ring-inset ${config.badge}`}
+          className={`inline-flex shrink-0 items-baseline gap-1 rounded-lg px-3 py-1.5 ring-1 ring-inset ${config.badge}`}
         >
-          <span className="font-quantity text-lg font-semibold tabular-nums leading-none tracking-tight">
+          <span className="font-quantity text-xl font-semibold tabular-nums leading-none tracking-tight sm:text-2xl">
             {item.quantity}
           </span>
-          <span className="text-[11px] font-medium opacity-80">uds</span>
+          <span className="text-xs font-medium opacity-80 sm:text-sm">uds</span>
         </div>
       </div>
 

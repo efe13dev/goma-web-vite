@@ -68,11 +68,11 @@ const FormulaModal: React.FC<FormulaModalProps> = ({ item, formula, onClose }) =
             <div className="min-w-0">
               <h2
                 id="formula-modal-title"
-                className="truncate font-display text-lg font-bold capitalize tracking-tight text-on-surface"
+                className="truncate font-display text-xl font-bold capitalize tracking-tight text-on-surface"
               >
                 {item.name}
               </h2>
-              <p className="text-xs font-medium text-on-surface-variant">
+              <p className="text-sm font-medium text-on-surface-variant">
                 {ingredients.length > 0
                   ? `Fórmula · ${ingredients.length} ingredientes`
                   : "Fórmula no disponible"}
@@ -86,13 +86,13 @@ const FormulaModal: React.FC<FormulaModalProps> = ({ item, formula, onClose }) =
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-outline/50 bg-surface-variant/60 text-on-surface-variant transition-colors hover:bg-surface-variant hover:text-on-surface"
             aria-label="Cerrar"
           >
-            <X size={17} />
+            <X size={18} />
           </button>
         </div>
 
         <div className="overflow-y-auto overscroll-contain">
           {ingredients.length === 0 ? (
-            <div className="rounded-xl border border-outline/50 bg-background px-4 py-8 text-center text-sm text-on-surface-variant">
+            <div className="rounded-xl border border-outline/50 bg-background px-4 py-8 text-center text-base text-on-surface-variant">
               No se encontraron ingredientes registrados para este color.
             </div>
           ) : (
@@ -103,17 +103,17 @@ const FormulaModal: React.FC<FormulaModalProps> = ({ item, formula, onClose }) =
                 return (
                   <li
                     key={ingredient.id}
-                    className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-surface-container"
+                    className="flex items-center justify-between gap-3 px-4 py-3.5 transition-colors hover:bg-surface-container"
                   >
-                    <span className="min-w-0 truncate text-sm font-medium capitalize text-on-surface">
+                    <span className="min-w-0 truncate text-base font-medium capitalize text-on-surface">
                       {label}
                     </span>
-                    <div className="inline-flex shrink-0 items-baseline gap-1 rounded-md border border-outline/50 bg-surface-container px-2 py-0.5">
-                      <span className="font-quantity text-sm font-semibold tabular-nums text-on-surface">
+                    <div className="inline-flex shrink-0 items-baseline gap-1 rounded-md border border-outline/50 bg-surface-container px-2.5 py-1">
+                      <span className="font-quantity text-base font-semibold tabular-nums text-on-surface">
                         {ingredient.quantity}
                       </span>
                       {unit && (
-                        <span className="text-xs font-medium text-on-surface-variant">{unit}</span>
+                        <span className="text-sm font-medium text-on-surface-variant">{unit}</span>
                       )}
                     </div>
                   </li>

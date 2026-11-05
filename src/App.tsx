@@ -25,10 +25,10 @@ function App() {
                 <img src={palot} className="h-6 w-6 sm:h-7 sm:w-7" alt="Logo" />
               </div>
               <div className="min-w-0">
-                <h1 className="truncate font-display text-lg font-bold tracking-tight text-on-surface sm:text-xl">
+                <h1 className="truncate font-display text-xl font-bold tracking-tight text-on-surface sm:text-2xl">
                   Goma Matu
                 </h1>
-                <p className="text-xs font-medium text-on-surface-variant">Control de inventario</p>
+                <p className="text-sm font-medium text-on-surface-variant">Control de inventario</p>
               </div>
             </div>
             <button
