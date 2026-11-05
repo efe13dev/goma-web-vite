@@ -8,6 +8,7 @@ import InventoryCard from "./InventoryCard";
 interface InventoryListProps {
   items: InventoryItem[];
   isLoading: boolean;
+  onSelectItem: (item: InventoryItem) => void;
   hasError?: boolean;
   skeletonCount?: number;
 }
@@ -15,6 +16,7 @@ interface InventoryListProps {
 const InventoryList: React.FC<InventoryListProps> = ({
   items,
   isLoading,
+  onSelectItem,
   hasError = false,
   skeletonCount = 5,
 }) => {
@@ -52,7 +54,12 @@ const InventoryList: React.FC<InventoryListProps> = ({
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item, index) => (
-        <InventoryCard key={item.id} item={item} style={{ animationDelay: `${index * 100}ms` }} />
+        <InventoryCard
+          key={item.id}
+          item={item}
+          onSelect={onSelectItem}
+          style={{ animationDelay: `${index * 100}ms` }}
+        />
       ))}
     </div>
   );

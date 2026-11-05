@@ -20,8 +20,13 @@
   animation: fade-in-up 0.5s ease-out forwards;
 }
 
+.sheet-animate {
+  animation: fade-in-up 0.22s ease-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .card-animate {
+  .card-animate,
+  .sheet-animate {
     opacity: 1;
     animation: none;
   }

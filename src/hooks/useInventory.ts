@@ -1,8 +1,8 @@
-import type { InventoryItem } from "../types/inventory";
+import type { Formula, InventoryItem } from "../types/inventory";
 
 import { useCallback, useEffect, useState } from "react";
 
-import { fetchInventoryData } from "../services/inventoryService";
+import { fetchFormulasData, fetchInventoryData } from "../services/inventoryService";
 
 const SKELETON_COUNT_KEY = "goma-skeleton-count";
 const DEFAULT_SKELETON_COUNT = 5;
@@ -15,6 +15,7 @@ const readSkeletonCount = (): number => {
 
 export const useInventory = () => {
   const [items, setItems] = useState<InventoryItem[]>([]);
+  const [formulas, setFormulas] = useState<Formula[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [skeletonCount, setSkeletonCount] = useState<number>(readSkeletonCount);
@@ -24,9 +25,20 @@ export const useInventory = () => {
     setError(null);
 
     try {
-      const data = await fetchInventoryData();
+      const [data, formulasResult] = await Promise.all([
+        fetchInventoryData(),
+        fetchFormulasData().catch((formulasError: unknown) => {
+          console.error("Error fetching formulas:", formulasError);
+
+          return null;
+        }),
+      ]);
 
       setItems(data);
+
+      if (formulasResult) {
+        setFormulas(formulasResult);
+      }
 
       if (data.length > 0) {
         setSkeletonCount(data.length);
@@ -47,6 +59,7 @@ export const useInventory = () => {
 
   return {
     items,
+    formulas,
     isLoading,
     error,
     skeletonCount,

@@ -1,12 +1,18 @@
+import type { InventoryItem } from "./types/inventory";
+
 import palot from "/favicon.png";
 import { RefreshCw } from "lucide-react";
+import { useState } from "react";
 
 import ErrorMessage from "./components/ErrorMessage";
+import FormulaModal from "./components/FormulaModal";
 import InventoryList from "./components/InventoryList";
 import { useInventory } from "./hooks/useInventory";
+import { findFormulaForItem } from "./services/inventoryService";
 
 function App() {
-  const { items, isLoading, error, skeletonCount, refreshInventory } = useInventory();
+  const { items, formulas, isLoading, error, skeletonCount, refreshInventory } = useInventory();
+  const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-surface-container-low via-background to-background">
@@ -52,10 +58,19 @@ function App() {
         <InventoryList
           items={items}
           isLoading={isLoading}
+          onSelectItem={setSelectedItem}
           hasError={!!error}
           skeletonCount={skeletonCount}
         />
       </main>
+
+      {selectedItem && (
+        <FormulaModal
+          item={selectedItem}
+          formula={findFormulaForItem(formulas, selectedItem.name)}
+          onClose={() => setSelectedItem(null)}
+        />
+      )}
     </div>
   );
 }

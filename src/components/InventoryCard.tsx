@@ -1,8 +1,11 @@
 import type { InventoryItem } from "../types/inventory";
 import type React from "react";
 
+import { ChevronRight } from "lucide-react";
+
 interface InventoryCardProps {
   item: InventoryItem;
+  onSelect: (item: InventoryItem) => void;
   style?: React.CSSProperties;
 }
 
@@ -23,7 +26,7 @@ const LEVEL_CONFIG: Record<QuantityLevel, { text: string; bar: string }> = {
   },
 };
 
-const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
+const InventoryCard: React.FC<InventoryCardProps> = ({ item, onSelect, style }) => {
   // Determine quantity level for styling
   const getQuantityLevel = (quantity: number): QuantityLevel => {
     if (quantity <= 1) return "low";
@@ -40,11 +43,22 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
   const progressPercentageVisible = Math.max(progressPercentage, item.quantity > 0 ? 4 : 0);
 
   return (
-    <div className="md-card md-card-hover card-animate p-4" style={style}>
+    <button
+      type="button"
+      onClick={() => onSelect(item)}
+      className="md-card md-card-hover card-animate group w-full cursor-pointer p-4 text-left active:scale-[0.99]"
+      style={style}
+    >
       <div className="mb-3 flex items-center justify-between gap-3">
-        <h3 className="min-w-0 truncate font-display text-base font-semibold capitalize tracking-tight text-on-surface">
-          {item.name}
-        </h3>
+        <div className="flex min-w-0 items-center gap-1.5">
+          <h3 className="min-w-0 truncate font-display text-base font-semibold capitalize tracking-tight text-on-surface">
+            {item.name}
+          </h3>
+          <ChevronRight
+            size={16}
+            className="shrink-0 text-on-surface-variant/60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-on-surface"
+          />
+        </div>
         <div className="flex shrink-0 items-baseline gap-1">
           <span
             className={`font-quantity text-[32px] font-bold tabular-nums leading-none tracking-tight ${config.text}`}
@@ -55,13 +69,13 @@ const InventoryCard: React.FC<InventoryCardProps> = ({ item, style }) => {
         </div>
       </div>
 
-      <div className="h-2.5 overflow-hidden rounded-full bg-surface-variant">
+      <div className="h-2.5 overflow-hidden rounded-full bg-outline/15">
         <div
           className={`h-2.5 rounded-full transition-[width] duration-700 ease-out ${config.bar}`}
           style={{ width: `${progressPercentageVisible}%` }}
         />
       </div>
-    </div>
+    </button>
   );
 };
 
