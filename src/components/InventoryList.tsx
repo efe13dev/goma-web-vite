@@ -22,14 +22,17 @@ const InventoryList: React.FC<InventoryListProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div className="grid animate-pulse grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid animate-pulse grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {Array.from({ length: skeletonCount }, (_, index) => (
-          <div key={`skeleton-${index}`} className="md-card p-4">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <div className="h-5 w-28 rounded bg-surface-variant" />
-              <div className="h-8 w-12 rounded bg-surface-variant" />
+          <div key={`skeleton-${index}`} className="md-card p-4 sm:p-5">
+            <div className="mb-3.5 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="h-3.5 w-3.5 rounded-full bg-surface-variant" />
+                <div className="h-5 w-24 rounded-md bg-surface-variant" />
+              </div>
+              <div className="h-7 w-12 rounded-md bg-surface-variant" />
             </div>
-            <div className="h-2.5 rounded-full bg-surface-variant" />
+            <div className="h-2 rounded-full bg-surface-variant" />
           </div>
         ))}
       </div>
@@ -52,13 +55,13 @@ const InventoryList: React.FC<InventoryListProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
       {items.map((item, index) => (
         <InventoryCard
           key={item.id}
           item={item}
           onSelect={onSelectItem}
-          style={{ animationDelay: `${index * 100}ms` }}
+          style={{ animationDelay: `${index * 60}ms` }}
         />
       ))}
     </div>

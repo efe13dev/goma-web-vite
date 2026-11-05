@@ -1,8 +1,10 @@
 import type { Formula, InventoryItem } from "../types/inventory";
 import type React from "react";
 
-import { FlaskConical, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useEffect } from "react";
+
+import { getColorSwatch } from "../services/inventoryService";
 
 interface FormulaModalProps {
   item: InventoryItem;
@@ -38,25 +40,30 @@ const FormulaModal: React.FC<FormulaModalProps> = ({ item, formula, onClose }) =
   }, [onClose]);
 
   const ingredients = formula?.ingredients ?? [];
+  const swatchColor = getColorSwatch(item.name);
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 backdrop-blur-[2px] sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-on-surface/35 backdrop-blur-[2px] sm:items-center sm:p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="formula-modal-title"
     >
       <div
-        className="sheet-animate flex max-h-[85dvh] w-full flex-col rounded-t-3xl border border-outline/20 bg-background p-5 shadow-2xl sm:max-w-md sm:rounded-2xl sm:p-6"
+        className="sheet-animate flex max-h-[85dvh] w-full flex-col rounded-t-3xl border border-outline/60 bg-surface-container p-5 shadow-2xl sm:max-w-md sm:rounded-2xl sm:p-6"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="mx-auto mb-4 h-1.5 w-12 shrink-0 rounded-full bg-outline/30 sm:hidden" />
+        <div className="mx-auto mb-4 h-1.5 w-10 shrink-0 rounded-full bg-outline/70 sm:hidden" />
 
         <div className="mb-4 flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-inset ring-primary/20">
-              <FlaskConical size={20} />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-outline/60 bg-surface-variant">
+              <span
+                className="h-4 w-4 rounded-full ring-1 ring-black/15"
+                style={{ backgroundColor: swatchColor }}
+                aria-hidden="true"
+              />
             </div>
             <div className="min-w-0">
               <h2
@@ -65,7 +72,7 @@ const FormulaModal: React.FC<FormulaModalProps> = ({ item, formula, onClose }) =
               >
                 {item.name}
               </h2>
-              <p className="text-xs text-on-surface-variant">
+              <p className="text-xs font-medium text-on-surface-variant">
                 {ingredients.length > 0
                   ? `Fórmula · ${ingredients.length} ingredientes`
                   : "Fórmula no disponible"}
@@ -76,39 +83,37 @@ const FormulaModal: React.FC<FormulaModalProps> = ({ item, formula, onClose }) =
           <button
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container text-on-surface-variant transition-colors hover:bg-outline/20 hover:text-on-surface"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-outline/50 bg-surface-variant/60 text-on-surface-variant transition-colors hover:bg-surface-variant hover:text-on-surface"
             aria-label="Cerrar"
           >
-            <X size={18} />
+            <X size={17} />
           </button>
         </div>
 
         <div className="overflow-y-auto overscroll-contain">
           {ingredients.length === 0 ? (
-            <div className="rounded-xl border border-outline/15 bg-surface-container-low px-4 py-8 text-center text-sm text-on-surface-variant">
+            <div className="rounded-xl border border-outline/50 bg-background px-4 py-8 text-center text-sm text-on-surface-variant">
               No se encontraron ingredientes registrados para este color.
             </div>
           ) : (
-            <ul className="divide-y divide-outline/15 overflow-hidden rounded-xl border border-outline/15 bg-surface-container-low">
+            <ul className="divide-y divide-outline/40 overflow-hidden rounded-xl border border-outline/60 bg-background">
               {ingredients.map((ingredient) => {
                 const { label, unit } = parseIngredientName(ingredient.name);
 
                 return (
                   <li
                     key={ingredient.id}
-                    className="flex items-center justify-between gap-3 px-4 py-3"
+                    className="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-surface-container"
                   >
                     <span className="min-w-0 truncate text-sm font-medium capitalize text-on-surface">
                       {label}
                     </span>
-                    <div className="flex shrink-0 items-baseline gap-1">
-                      <span className="font-quantity text-base font-bold tabular-nums text-on-surface">
+                    <div className="inline-flex shrink-0 items-baseline gap-1 rounded-md border border-outline/50 bg-surface-container px-2 py-0.5">
+                      <span className="font-quantity text-sm font-semibold tabular-nums text-on-surface">
                         {ingredient.quantity}
                       </span>
                       {unit && (
-                        <span className="w-6 text-left text-xs font-medium text-on-surface-variant">
-                          {unit}
-                        </span>
+                        <span className="text-xs font-medium text-on-surface-variant">{unit}</span>
                       )}
                     </div>
                   </li>

@@ -15,6 +15,21 @@ const normalizeColorName = (name: string): string =>
     )
     .join(" ");
 
+export const getColorSwatch = (name: string): string => {
+  const lower = name.toLowerCase();
+
+  if (lower.includes("negr")) return "#18181b";
+  if (lower.includes("marino")) return "#1e3a8a";
+  if (lower.includes("blanc")) return "#ffffff";
+  if (lower.includes("gris")) return "#94a3b8";
+  if (lower.includes("crud")) return "#ebe0cc";
+  if (lower.includes("beig")) return "#d6bc94";
+  if (lower.includes("rosa")) return "#f472b6";
+  if (lower.includes("agua")) return "#2dd4bf";
+
+  return "#cbd5e1";
+};
+
 export const findFormulaForItem = (formulas: Formula[], itemName: string): Formula | undefined => {
   const exact = itemName.toLowerCase().trim();
   const normalized = normalizeColorName(itemName);
