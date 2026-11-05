@@ -127,7 +127,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://api-rubber-hono.onrender.com",
+        target: "https://api-rubber-hono.efe13dev.workers.dev",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
         secure: false,

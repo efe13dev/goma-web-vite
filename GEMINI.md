@@ -15,7 +15,7 @@ The application fetches inventory data from a remote API, displays it in a list 
 - **Build Tool:** Vite
 - **Styling:** Tailwind CSS
 - **Linting:** ESLint
-- **API Endpoint:** `https://api-rubber-hono.onrender.com/stock`
+- **API Endpoint:** `https://api-rubber-hono.efe13dev.workers.dev/stock`
 
 ## Building and Running
 
