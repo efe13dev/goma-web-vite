@@ -15,19 +15,78 @@ const normalizeColorName = (name: string): string =>
     )
     .join(" ");
 
+const COLOR_MAP: readonly [string, string][] = [
+  ["aguamar", "#2DD4BF"],
+  ["turques", "#14B8A6"],
+  ["celest", "#38BDF8"],
+  ["marin", "#1E3A6D"],
+  ["negr", "#26292E"],
+  ["blanc", "#F8FAFC"],
+  ["crud", "#E8DFCA"],
+  ["beig", "#D6C29F"],
+  ["arena", "#D8C39E"],
+  ["camel", "#C19A6B"],
+  ["ocre", "#CC7722"],
+  ["mostaz", "#D4A017"],
+  ["dorad", "#D4AF37"],
+  ["oro", "#D4AF37"],
+  ["plat", "#CBD5E1"],
+  ["gris", "#94A3B8"],
+  ["fucsi", "#D946EF"],
+  ["coral", "#FB7185"],
+  ["salm", "#FDA4AF"],
+  ["rosa", "#F472B6"],
+  ["burde", "#7F1D1D"],
+  ["granat", "#881337"],
+  ["vino", "#7F1D1D"],
+  ["teja", "#B45309"],
+  ["terracot", "#C2410C"],
+  ["naranj", "#F97316"],
+  ["amarill", "#EAB308"],
+  ["oliv", "#65A30D"],
+  ["caqui", "#848860"],
+  ["menta", "#34D399"],
+  ["verd", "#22C55E"],
+  ["azul", "#3B82F6"],
+  ["morad", "#7C3AED"],
+  ["violet", "#8B5CF6"],
+  ["lila", "#C084FC"],
+  ["lavand", "#A78BFA"],
+  ["marr", "#78350F"],
+  ["chocolat", "#5C2C16"],
+  ["cafe", "#6F4E37"],
+  ["roj", "#EF4444"],
+];
+
+const adjustHexBrightness = (hex: string, delta: number): string => {
+  const num = Number.parseInt(hex.slice(1), 16);
+  const clamp = (v: number) => Math.max(0, Math.min(255, v));
+  const r = clamp((num >> 16) + delta);
+  const g = clamp(((num >> 8) & 0xff) + delta);
+  const b = clamp((num & 0xff) + delta);
+  return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
+};
+
 export const getColorSwatch = (name: string): string => {
-  const lower = name.toLowerCase();
+  const n = name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 
-  if (lower.includes("negr")) return "#18181b";
-  if (lower.includes("marino")) return "#1e3a8a";
-  if (lower.includes("blanc")) return "#ffffff";
-  if (lower.includes("gris")) return "#94a3b8";
-  if (lower.includes("crud")) return "#ebe0cc";
-  if (lower.includes("beig")) return "#d6bc94";
-  if (lower.includes("rosa")) return "#f472b6";
-  if (lower.includes("agua")) return "#2dd4bf";
+  for (const [key, hex] of COLOR_MAP) {
+    if (n.includes(key)) {
+      if (n.includes("clar")) return adjustHexBrightness(hex, 38);
+      if (n.includes("oscur")) return adjustHexBrightness(hex, -38);
+      return hex;
+    }
+  }
 
-  return "#cbd5e1";
+  let hash = 0;
+  for (let i = 0; i < n.length; i++) {
+    hash = n.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 55%, 52%)`;
 };
 
 export const findFormulaForItem = (formulas: Formula[], itemName: string): Formula | undefined => {
